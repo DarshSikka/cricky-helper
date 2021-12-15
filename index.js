@@ -68,6 +68,10 @@ client.on("ready", (clt) => {
     name: "level",
     description: "Check lvl and xp",
   });
+  commands.create({
+    name: "leaderboard",
+    description: "links to web leaderboard",
+  });
 });
 client.on("messageCreate", async (message) => {
   if (message.author.bot) {
