@@ -147,12 +147,24 @@ client.on("interactionCreate", async (interaction) => {
           "Hi, u need to send a message to gain atleast 2 xp to run this command",
       });
     } else {
+      const msgEmb = new MessageEmbed()
+        .setTitle("ur level and xp")
+        .setDescription(
+          `lvl ${person.level} and xp ${person.xp} and needed xp ${lvlToXp(
+            person.level
+          )}`
+        )
+        .setURL(
+          `https://crickyboi.vercel.app/#/profile/${interaction.user.id}`
+        );
       interaction.reply({
-        content: `lvl ${person.level} and xp ${
-          person.xp
-        } and needed xp ${lvlToXp(person.level)}`,
+        embeds: [msgEmb],
       });
     }
+  }
+  if (commandName === "leaderboard") {
+    const link = `https://crickeyboi.vercel.app/#/server-lb`;
+    interaction.reply({ content: link });
   }
   if (commandName === "worthy") {
     const role = interaction.options.getString("role");
