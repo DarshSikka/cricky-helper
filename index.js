@@ -15,6 +15,8 @@ const lvl = {
   50: "919831202733629440",
 };
 const app = express();
+const cors = require("cors");
+app.use(cors());
 const mongoose = require("mongoose");
 mongoose.connect(process.env.DB_URI, {}, () =>
   console.log("hlo ppl db ready yoo")
