@@ -14,6 +14,7 @@ const lvl = {
   20: "919830122943614986",
   50: "919831202733629440",
 };
+let pplForFiveMins = [];
 const app = express();
 const cors = require("cors");
 app.use(cors());
@@ -99,6 +100,17 @@ client.on("messageCreate", async (message) => {
     usr.save();
     return;
   }
+  const pers = pplForFiveMins.filter((user) => user.id === usr.id)[0];
+  console.log(pers);
+  if (!pers) {
+    pplForFiveMins.push({
+      id: usr.id,
+      xp: xp,
+      time: 0,
+    });
+  } else if (pers && pers.xp > 30) {
+    return;
+  }
   usr.xp += xp;
   const xpNeeded = lvlToXp(usr.level);
   if (usr.xp >= xpNeeded) {
@@ -131,6 +143,15 @@ client.on("messageCreate", async (message) => {
     }
   }
   console.log(typeof usr.xp);
+  if (pers) {
+    pplForFiveMins = pplForFiveMins.map((person) => {
+      if (person.id === usr.id) {
+        return { ...person, xp: person.xp + xp };
+      } else {
+        return person;
+      }
+    });
+  }
   usr.save();
   return;
 });
@@ -223,3 +244,10 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 client.login(process.env.TOKEN);
+setInterval(() => {
+  pplForFiveMins = pplForFiveMins.map((pers) => ({
+    ...pers,
+    time: pers.time + 10,
+  }));
+  pplForFiveMins = pplForFiveMins.filter((pers) => pers.time < 300000);
+}, 10);
