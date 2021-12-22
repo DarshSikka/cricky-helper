@@ -117,9 +117,7 @@ client.on("messageCreate", async (message) => {
     usr.xp = usr.xp - xpNeeded;
     console.log(usr.xp);
     usr.level += 1;
-    const guildId = process.env.SERVER;
-    const guild = client.guilds.cache.get(guildId);
-    const channel = client.channels.cache.get("923052826563862589");
+    const channel = client.channels.cache.get("919813994112507915");
     channel.send(
       `Total gg to <@${usr.idE}> for advancing to level ${usr.level}. `
     );
