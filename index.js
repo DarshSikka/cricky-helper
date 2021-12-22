@@ -14,6 +14,12 @@ const lvl = {
   20: "919830122943614986",
   50: "919831202733629440",
 };
+const playchannels = [
+  "919623184549019658",
+  "920170763942760478",
+  "920170791147036684",
+  "920170819416633367",
+];
 let pplForFiveMins = [];
 const app = express();
 const cors = require("cors");
@@ -77,6 +83,17 @@ client.on("ready", (clt) => {
 client.on("messageCreate", async (message) => {
   if (message.author.bot) {
     return;
+  }
+  if (playChannels.includes(message.channel.id)) {
+    if (
+      message.content.startsWith("cg!chal ") ||
+      message.content.startsWith("do ur ball") ||
+      message.content.startsWith("do ur shot")
+    ) {
+      return;
+    } else {
+      message.delete();
+    }
   }
   const content = message.content;
   let xp = 0;
